@@ -17,13 +17,14 @@ services:
         context: './nginx'
 
       ports:
-        - '8080:80'
+        - '8000:80'
 
       restart: always
 
       depends_on:
         - api
         - client
+    
 
     
     api:
@@ -31,9 +32,7 @@ services:
         dockerfile: Dockerfile.dev
         context: ./server
       
-      expose:
-          - '5000'
-     
+      
       volumes:
           - /app/node_modules
           - ./server:/app
@@ -51,9 +50,11 @@ services:
       build:
         dockerfile: Dockerfile.dev
         context: ./client
+
+      expose: 
+        - '3000'
       
-      expose:
-          - '3000'
+     
       
      
       volumes:
@@ -62,6 +63,9 @@ services:
       
       stdin_open: true
 
+     
+
+     
      
     worker:
       build: 
